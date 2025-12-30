@@ -1,51 +1,53 @@
 # Ziyad API
 
-Run the project using Docker Compose (Postgres + Node app).
+Panduan singkat menjalankan proyek menggunakan Docker Compose (Postgres + Node).
 
-## Prerequisites
-- Docker & Docker Compose (v2) installed
+## Persyaratan
+- Docker dan Docker Compose (v2) terpasang di mesin Anda.
 
-## Quick start
-1. Build and start services (runs the app in development mode):
+## Langkah cepat
+1. Bangun dan jalankan layanan (mode development):
 
 ```bash
 docker compose up --build -d
 ```
 
-2. Install deps + generate Prisma client and push schema to the DB (execute inside the `app` service):
+2. Instal dependency, generate Prisma client, dan sinkronkan skema ke database (jalankan di dalam service `app`):
 
 ```bash
-# runs inside the app container
+# jalankan di dalam kontainer app
 docker compose exec app sh -c "npm install --silent && npx prisma generate && npx prisma db push"
 ```
 
-Notes:
-- `npx prisma generate` creates the Prisma client used by the app.
-- `npx prisma db push` syncs the Prisma schema with the database (dev workflows). If you use migrations, run `npx prisma migrate dev` instead.
+Catatan:
+- `npx prisma generate` membuat Prisma Client yang digunakan aplikasi.
+- `npx prisma db push` menyinkronkan schema Prisma ke database (untuk workflow development). Jika Anda menggunakan migration workflow, gunakan `npx prisma migrate dev`.
 
-## Access
-- App: http://localhost:3000
+## Akses
+- Aplikasi: http://localhost:3000
 - Postgres (host): localhost:5432 (user: `postgres`, pass: `postgres`, db: `ziyad`)
 
-## Common commands
-- View logs:
+## Perintah umum
+- Lihat log aplikasi:
 
 ```bash
 docker compose logs -f app
 ```
 
-- Stop & remove containers (and network):
+- Hentikan & hapus container (dan network):
 
 ```bash
 docker compose down
 ```
 
-- Run a shell inside the app container:
+- Masuk shell di dalam kontainer app:
 
 ```bash
 docker compose exec app sh
 ```
 
 ## Tips
-- If you change the Prisma schema, re-run `npx prisma generate` and `npx prisma db push` (or `migrate` as appropriate).
-- For production builds, replace the `app` service command with a proper Dockerfile build and non-mounted `node_modules`.
+- Jika Anda mengubah `prisma/schema.prisma`, jalankan ulang `npx prisma generate` dan `npx prisma db push` (atau migrate jika perlu).
+- Untuk produksi, sebaiknya buat `Dockerfile` untuk aplikasi dan jangan mount `node_modules` dari host; bangun image yang teroptimasi untuk production.
+
+Jika mau, saya bisa membantu memindahkan ini ke `README.md` atau mengganti file asli langsung.
