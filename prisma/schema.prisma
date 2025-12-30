@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Define your database models here
+// Learn more about modeling in the docs: https://pris.ly/d/data-modeling
+
+model books {
+  id        String @id @default(cuid())
+  title     String
+  author    String
+  published Int
+  genre     String
+  stock     Int
+  borrows   borrows[]
+}
+
+model users {
+  id       String @id @default(cuid())
+  email    String @unique
+  name     String
+  password String
+  borrows  borrows[]
+}
+
+model borrows {
+  id        String   @id @default(cuid())
+  userId    String
+  bookId    String
+  borrowDate DateTime @default(now())
+  returnDate DateTime?
+
+  user users @relation(fields: [userId], references: [id])
+  book books @relation(fields: [bookId], references: [id])
+}
