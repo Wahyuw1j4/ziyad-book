@@ -45,9 +45,3 @@ docker compose down
 ```bash
 docker compose exec app sh
 ```
-
-## Tips
-- Jika Anda mengubah `prisma/schema.prisma`, jalankan ulang `npx prisma generate` dan `npx prisma db push` (atau migrate jika perlu).
-- Untuk produksi, sebaiknya buat `Dockerfile` untuk aplikasi dan jangan mount `node_modules` dari host; bangun image yang teroptimasi untuk production.
-
-Jika mau, saya bisa membantu memindahkan ini ke `README.md` atau mengganti file asli langsung.
